@@ -1,0 +1,87 @@
+﻿@model SupportSystemMOJ.dbModels.Users_CourtsDto
+
+@{
+    ViewBag.Title = "المستخدمين في المحاكم";
+    ViewBag.nameUsers = "تفاصيل الربط";
+}
+
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CreateDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreateDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UpdateDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UpdateDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.isActive)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.isActive)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("المحكمة - المكتب")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CourtsOffice.OfficeName)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("نوع المستخدم")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Role.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("صلاحية المستخدم")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SubRole.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("اسم المستخدم")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.UserName)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("ربط بواسطة")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User1.UserName)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("أخر تعديل بواسطة")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User2.UserName)
+        </dd>
+
+    </dl>
+</div>
+<div style="left:0px;">
+    @Html.ActionLink("تعديل", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("العودة إلى الخلف", "Index")
+</div>

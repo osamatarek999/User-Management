@@ -1,0 +1,26 @@
+﻿
+@{
+    Layout = null;
+    ViewBag.Title = "لوحة المستخدمين";
+}
+
+<!DOCTYPE html>
+<html lang="ar-ae" dir="rtl">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>@ViewBag.Title - وزارة العدل</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/fonts/circular-std/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/Content/style.css">
+</head>
+<body>
+    @if (Session["FullName"] != null)
+    {
+        <h1 style="margin: 35px 35px;">مرحبا يا @Session["FullName"].ToString()</h1>
+        <h1><a class="btn btn-primary pull-left" style="left: 45px; position: absolute;" href="~/Users/LogOut">تسجيل الخروج</a></h1>
+    }
+</body>
+</html>
+
+

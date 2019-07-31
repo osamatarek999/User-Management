@@ -1,0 +1,86 @@
+﻿@model SupportSystemMOJ.Models.User
+
+@{
+    Layout = null;
+    ViewBag.Title = "تسجيل الدخول";
+}
+
+<!DOCTYPE html>
+<html lang="ar-ae" dir="rtl">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>@ViewBag.Title - وزارة العدل</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/fonts/circular-std/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/Content/style.css">
+
+    <link rel="stylesheet" href="~/Content/fonts/fontawesome/css/fontawesome-all.css">
+    <link rel="stylesheet" href="~/Content/fonts/material-design-iconic-font/css/materialdesignicons.min.css">
+    <link rel="stylesheet" type="text/css" href="//www.fontstatic.com/f=sky-bold" />
+
+    <style>
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            font-family: 'sky-bold';
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-align: center;
+            align-items: center;
+            padding-top: 40px;
+            padding-bottom: 40px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="splash-container">
+        <div class="card ">
+            <div class="card-header text-center"><div class="navbar-brand"><img style="width:240px; margin-bottom:8px;" src="~/Content/images/moj.png" /></div><span class="splash-description">من فضلك قم بتعبئة البيانات المطلوبة</span></div>
+            <div class="card-body">
+                @using (Html.BeginForm("login", "Users", FormMethod.Post))
+                {
+
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+
+                    <div class="form-group">
+                        <div class="input-group mb-3">
+                            <span class="input-group-prepend"><span class="input-group-text"><i class="mdi mdi-email"></i></span></span>
+                            @Html.TextBoxFor(a => a.Email, new { @class = "form-control form-control-lg", @placeholder = "البريد الإلكتروني" , @type = "email" })
+                            @Html.ValidationMessageFor(a => a.Email)
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="input-group mb-3">
+                            <span class="input-group-prepend"><span class="input-group-text"><i class="mdi mdi-lock"></i></span></span>
+                            @Html.TextBoxFor(a => a.Password, new { @class = "form-control form-control-lg" , @placeholder = "كلمة المرور" , @type = "password" })
+                            @Html.ValidationMessageFor(a => a.Password)
+                        </div>
+                    </div>
+
+                    <button id="ok1" type="submit" class="btn btn-primary btn-lg btn-block">تسجيل دخول</button>
+
+                    <br /><br />
+                    if (@ViewBag.Message != null)
+                    {
+                          <div class="alert alert-warning" style="text-align:right" role="alert">
+                              @ViewBag.Message
+                          </div>
+                    }
+                }
+            </div>
+            </div>
+    </div>
+
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.bundle.js"></script>
+</body>
+</html>
+

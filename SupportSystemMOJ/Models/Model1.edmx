@@ -1,0 +1,662 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="MOJModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Courts">
+          <Key>
+            <PropertyRef Name="CourtID" />
+          </Key>
+          <Property Name="CourtID" Type="int" Nullable="false" />
+          <Property Name="CourtName" Type="nvarchar" MaxLength="100" />
+          <Property Name="CategoryID" Type="int" />
+          <Property Name="AllowAppointment" Type="bit" />
+          <Property Name="AppointmentLimit" Type="int" />
+          <Property Name="CourtCode" Type="int" />
+          <Property Name="CityCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="RegionCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="CityID" Type="int" />
+          <Property Name="RegionID" Type="int" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="OldCourtId" Type="int" />
+        </EntityType>
+        <EntityType Name="CourtsOffice">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OfficeName" Type="nvarchar" MaxLength="50" />
+          <Property Name="OfficeNo" Type="int" Nullable="false" />
+          <Property Name="CourtId" Type="int" Nullable="false" />
+          <Property Name="WorkPercentage" Type="int" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="IsWorking" Type="bit" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="SubRole">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="100" />
+          <Property Name="RoleID" Type="int" />
+          <Property Name="CourtID" Type="int" />
+          <Property Name="CreationDate" Type="datetime" />
+          <Property Name="LastLoginDateTime" Type="datetime" />
+          <Property Name="OfficeNumber" Type="int" />
+          <Property Name="OfficeFloorNumber" Type="int" />
+          <Property Name="OfficeName" Type="nvarchar" MaxLength="100" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="IsInworkToday" Type="bit" />
+          <Property Name="MaxQueueCount" Type="int" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="100" />
+          <Property Name="Mobile" Type="nvarchar" MaxLength="100" />
+          <Property Name="LastUpdateDate" Type="datetime" />
+          <Property Name="SocialID" Type="nvarchar" MaxLength="50" />
+          <Property Name="ExtensionNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="ActiveDirectoryUserName" Type="nvarchar" MaxLength="250" />
+          <Property Name="olduserid" Type="int" />
+          <Property Name="SubRoleID" Type="int" />
+        </EntityType>
+        <EntityType Name="Users_Courts">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="CorutOfficeID" Type="int" />
+          <Property Name="RoleID" Type="int" />
+          <Property Name="SupRoleID" Type="int" />
+          <Property Name="CreateAdminID" Type="int" />
+          <Property Name="UpdateAdminID" Type="int" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdateDate" Type="datetime" Nullable="false" />
+          <Property Name="isActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_CourtsOffice_Courts">
+          <End Role="Courts" Type="Self.Courts" Multiplicity="1" />
+          <End Role="CourtsOffice" Type="Self.CourtsOffice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Courts">
+              <PropertyRef Name="CourtID" />
+            </Principal>
+            <Dependent Role="CourtsOffice">
+              <PropertyRef Name="CourtId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Courts">
+          <End Role="Courts" Type="Self.Courts" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Courts">
+              <PropertyRef Name="CourtID" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="CourtID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_SubRole">
+          <End Role="SubRole" Type="Self.SubRole" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubRole">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="SubRoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Courts_CourtsOffice">
+          <End Role="CourtsOffice" Type="Self.CourtsOffice" Multiplicity="0..1" />
+          <End Role="Users_Courts" Type="Self.Users_Courts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CourtsOffice">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Users_Courts">
+              <PropertyRef Name="CorutOfficeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Courts_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
+          <End Role="Users_Courts" Type="Self.Users_Courts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Users_Courts">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Courts_SubRole">
+          <End Role="SubRole" Type="Self.SubRole" Multiplicity="0..1" />
+          <End Role="Users_Courts" Type="Self.Users_Courts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubRole">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Users_Courts">
+              <PropertyRef Name="SupRoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Courts_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Users_Courts" Type="Self.Users_Courts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Users_Courts">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Courts_User1">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Users_Courts" Type="Self.Users_Courts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Users_Courts">
+              <PropertyRef Name="CreateAdminID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Courts_User2">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Users_Courts" Type="Self.Users_Courts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Users_Courts">
+              <PropertyRef Name="UpdateAdminID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MOJModelStoreContainer">
+          <EntitySet Name="Courts" EntityType="Self.Courts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CourtsOffice" EntityType="Self.CourtsOffice" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SubRole" EntityType="Self.SubRole" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users_Courts" EntityType="Self.Users_Courts" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_CourtsOffice_Courts" Association="Self.FK_CourtsOffice_Courts">
+            <End Role="Courts" EntitySet="Courts" />
+            <End Role="CourtsOffice" EntitySet="CourtsOffice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Courts" Association="Self.FK_User_Courts">
+            <End Role="Courts" EntitySet="Courts" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_SubRole" Association="Self.FK_User_SubRole">
+            <End Role="SubRole" EntitySet="SubRole" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Courts_CourtsOffice" Association="Self.FK_Users_Courts_CourtsOffice">
+            <End Role="CourtsOffice" EntitySet="CourtsOffice" />
+            <End Role="Users_Courts" EntitySet="Users_Courts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Courts_Role" Association="Self.FK_Users_Courts_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="Users_Courts" EntitySet="Users_Courts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Courts_SubRole" Association="Self.FK_Users_Courts_SubRole">
+            <End Role="SubRole" EntitySet="SubRole" />
+            <End Role="Users_Courts" EntitySet="Users_Courts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Courts_User" Association="Self.FK_Users_Courts_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Users_Courts" EntitySet="Users_Courts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Courts_User1" Association="Self.FK_Users_Courts_User1">
+            <End Role="User" EntitySet="User" />
+            <End Role="Users_Courts" EntitySet="Users_Courts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Courts_User2" Association="Self.FK_Users_Courts_User2">
+            <End Role="User" EntitySet="User" />
+            <End Role="Users_Courts" EntitySet="Users_Courts" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MOJModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Court">
+          <Key>
+            <PropertyRef Name="CourtID" />
+          </Key>
+          <Property Name="CourtID" Type="Int32" Nullable="false" />
+          <Property Name="CourtName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CategoryID" Type="Int32" />
+          <Property Name="AllowAppointment" Type="Boolean" />
+          <Property Name="AppointmentLimit" Type="Int32" />
+          <Property Name="CourtCode" Type="Int32" />
+          <Property Name="CityCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RegionCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CityID" Type="Int32" />
+          <Property Name="RegionID" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="OldCourtId" Type="Int32" />
+          <NavigationProperty Name="CourtsOffices" Relationship="Self.FK_CourtsOffice_Courts" FromRole="Courts" ToRole="CourtsOffice" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_User_Courts" FromRole="Courts" ToRole="User" />
+        </EntityType>
+        <EntityType Name="CourtsOffice">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OfficeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OfficeNo" Type="Int32" Nullable="false" />
+          <Property Name="CourtId" Type="Int32" Nullable="false" />
+          <Property Name="WorkPercentage" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="IsWorking" Type="Boolean" />
+          <NavigationProperty Name="Court" Relationship="Self.FK_CourtsOffice_Courts" FromRole="CourtsOffice" ToRole="Courts" />
+          <NavigationProperty Name="Users_Courts" Relationship="Self.FK_Users_Courts_CourtsOffice" FromRole="CourtsOffice" ToRole="Users_Courts" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_User_Role" FromRole="Role" ToRole="User" />
+          <NavigationProperty Name="Users_Courts" Relationship="Self.FK_Users_Courts_Role" FromRole="Role" ToRole="Users_Courts" />
+        </EntityType>
+        <EntityType Name="SubRole">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_User_SubRole" FromRole="SubRole" ToRole="User" />
+          <NavigationProperty Name="Users_Courts" Relationship="Self.FK_Users_Courts_SubRole" FromRole="SubRole" ToRole="Users_Courts" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FullName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="RoleID" Type="Int32" />
+          <Property Name="CourtID" Type="Int32" />
+          <Property Name="CreationDate" Type="DateTime" Precision="3" />
+          <Property Name="LastLoginDateTime" Type="DateTime" Precision="3" />
+          <Property Name="OfficeNumber" Type="Int32" />
+          <Property Name="OfficeFloorNumber" Type="Int32" />
+          <Property Name="OfficeName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="IsInworkToday" Type="Boolean" />
+          <Property Name="MaxQueueCount" Type="Int32" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Mobile" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="LastUpdateDate" Type="DateTime" Precision="3" />
+          <Property Name="SocialID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ExtensionNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ActiveDirectoryUserName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="olduserid" Type="Int32" />
+          <Property Name="SubRoleID" Type="Int32" />
+          <NavigationProperty Name="Court" Relationship="Self.FK_User_Courts" FromRole="User" ToRole="Courts" />
+          <NavigationProperty Name="Role" Relationship="Self.FK_User_Role" FromRole="User" ToRole="Role" />
+          <NavigationProperty Name="SubRole" Relationship="Self.FK_User_SubRole" FromRole="User" ToRole="SubRole" />
+          <NavigationProperty Name="Users_Courts" Relationship="Self.FK_Users_Courts_User" FromRole="User" ToRole="Users_Courts" />
+          <NavigationProperty Name="Users_Courts1" Relationship="Self.FK_Users_Courts_User1" FromRole="User" ToRole="Users_Courts" />
+          <NavigationProperty Name="Users_Courts2" Relationship="Self.FK_Users_Courts_User2" FromRole="User" ToRole="Users_Courts" />
+        </EntityType>
+        <EntityType Name="Users_Courts">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="CorutOfficeID" Type="Int32" />
+          <Property Name="RoleID" Type="Int32" />
+          <Property Name="SupRoleID" Type="Int32" />
+          <Property Name="CreateAdminID" Type="Int32" />
+          <Property Name="UpdateAdminID" Type="Int32" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="isActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="CourtsOffice" Relationship="Self.FK_Users_Courts_CourtsOffice" FromRole="Users_Courts" ToRole="CourtsOffice" />
+          <NavigationProperty Name="Role" Relationship="Self.FK_Users_Courts_Role" FromRole="Users_Courts" ToRole="Role" />
+          <NavigationProperty Name="SubRole" Relationship="Self.FK_Users_Courts_SubRole" FromRole="Users_Courts" ToRole="SubRole" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Users_Courts_User" FromRole="Users_Courts" ToRole="User" />
+          <NavigationProperty Name="User1" Relationship="Self.FK_Users_Courts_User1" FromRole="Users_Courts" ToRole="User" />
+          <NavigationProperty Name="User2" Relationship="Self.FK_Users_Courts_User2" FromRole="Users_Courts" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_CourtsOffice_Courts">
+          <End Role="Courts" Type="Self.Court" Multiplicity="1" />
+          <End Role="CourtsOffice" Type="Self.CourtsOffice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Courts">
+              <PropertyRef Name="CourtID" />
+            </Principal>
+            <Dependent Role="CourtsOffice">
+              <PropertyRef Name="CourtId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Courts">
+          <End Role="Courts" Type="Self.Court" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Courts">
+              <PropertyRef Name="CourtID" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="CourtID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Courts_CourtsOffice">
+          <End Role="CourtsOffice" Type="Self.CourtsOffice" Multiplicity="0..1" />
+          <End Role="Users_Courts" Type="Self.Users_Courts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CourtsOffice">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Users_Courts">
+              <PropertyRef Name="CorutOfficeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Courts_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
+          <End Role="Users_Courts" Type="Self.Users_Courts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Users_Courts">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_SubRole">
+          <End Role="SubRole" Type="Self.SubRole" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubRole">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="SubRoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Courts_SubRole">
+          <End Role="SubRole" Type="Self.SubRole" Multiplicity="0..1" />
+          <End Role="Users_Courts" Type="Self.Users_Courts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubRole">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Users_Courts">
+              <PropertyRef Name="SupRoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Courts_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Users_Courts" Type="Self.Users_Courts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Users_Courts">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Courts_User1">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Users_Courts" Type="Self.Users_Courts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Users_Courts">
+              <PropertyRef Name="CreateAdminID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Courts_User2">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Users_Courts" Type="Self.Users_Courts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Users_Courts">
+              <PropertyRef Name="UpdateAdminID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MOJEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Courts" EntityType="Self.Court" />
+          <EntitySet Name="CourtsOffices" EntityType="Self.CourtsOffice" />
+          <EntitySet Name="Roles" EntityType="Self.Role" />
+          <EntitySet Name="SubRoles" EntityType="Self.SubRole" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="Users_Courts" EntityType="Self.Users_Courts" />
+          <AssociationSet Name="FK_CourtsOffice_Courts" Association="Self.FK_CourtsOffice_Courts">
+            <End Role="Courts" EntitySet="Courts" />
+            <End Role="CourtsOffice" EntitySet="CourtsOffices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Courts" Association="Self.FK_User_Courts">
+            <End Role="Courts" EntitySet="Courts" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Courts_CourtsOffice" Association="Self.FK_Users_Courts_CourtsOffice">
+            <End Role="CourtsOffice" EntitySet="CourtsOffices" />
+            <End Role="Users_Courts" EntitySet="Users_Courts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Courts_Role" Association="Self.FK_Users_Courts_Role">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="Users_Courts" EntitySet="Users_Courts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_SubRole" Association="Self.FK_User_SubRole">
+            <End Role="SubRole" EntitySet="SubRoles" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Courts_SubRole" Association="Self.FK_Users_Courts_SubRole">
+            <End Role="SubRole" EntitySet="SubRoles" />
+            <End Role="Users_Courts" EntitySet="Users_Courts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Courts_User" Association="Self.FK_Users_Courts_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Users_Courts" EntitySet="Users_Courts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Courts_User1" Association="Self.FK_Users_Courts_User1">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Users_Courts" EntitySet="Users_Courts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Courts_User2" Association="Self.FK_Users_Courts_User2">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Users_Courts" EntitySet="Users_Courts" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MOJModelStoreContainer" CdmEntityContainer="MOJEntities">
+          <EntitySetMapping Name="Courts">
+            <EntityTypeMapping TypeName="MOJModel.Court">
+              <MappingFragment StoreEntitySet="Courts">
+                <ScalarProperty Name="CourtID" ColumnName="CourtID" />
+                <ScalarProperty Name="CourtName" ColumnName="CourtName" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="AllowAppointment" ColumnName="AllowAppointment" />
+                <ScalarProperty Name="AppointmentLimit" ColumnName="AppointmentLimit" />
+                <ScalarProperty Name="CourtCode" ColumnName="CourtCode" />
+                <ScalarProperty Name="CityCode" ColumnName="CityCode" />
+                <ScalarProperty Name="RegionCode" ColumnName="RegionCode" />
+                <ScalarProperty Name="CityID" ColumnName="CityID" />
+                <ScalarProperty Name="RegionID" ColumnName="RegionID" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="OldCourtId" ColumnName="OldCourtId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CourtsOffices">
+            <EntityTypeMapping TypeName="MOJModel.CourtsOffice">
+              <MappingFragment StoreEntitySet="CourtsOffice">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="OfficeName" ColumnName="OfficeName" />
+                <ScalarProperty Name="OfficeNo" ColumnName="OfficeNo" />
+                <ScalarProperty Name="CourtId" ColumnName="CourtId" />
+                <ScalarProperty Name="WorkPercentage" ColumnName="WorkPercentage" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="IsWorking" ColumnName="IsWorking" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="MOJModel.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SubRoles">
+            <EntityTypeMapping TypeName="MOJModel.SubRole">
+              <MappingFragment StoreEntitySet="SubRole">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="MOJModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="CourtID" ColumnName="CourtID" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="LastLoginDateTime" ColumnName="LastLoginDateTime" />
+                <ScalarProperty Name="OfficeNumber" ColumnName="OfficeNumber" />
+                <ScalarProperty Name="OfficeFloorNumber" ColumnName="OfficeFloorNumber" />
+                <ScalarProperty Name="OfficeName" ColumnName="OfficeName" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="IsInworkToday" ColumnName="IsInworkToday" />
+                <ScalarProperty Name="MaxQueueCount" ColumnName="MaxQueueCount" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="LastUpdateDate" ColumnName="LastUpdateDate" />
+                <ScalarProperty Name="SocialID" ColumnName="SocialID" />
+                <ScalarProperty Name="ExtensionNumber" ColumnName="ExtensionNumber" />
+                <ScalarProperty Name="ActiveDirectoryUserName" ColumnName="ActiveDirectoryUserName" />
+                <ScalarProperty Name="olduserid" ColumnName="olduserid" />
+                <ScalarProperty Name="SubRoleID" ColumnName="SubRoleID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users_Courts">
+            <EntityTypeMapping TypeName="MOJModel.Users_Courts">
+              <MappingFragment StoreEntitySet="Users_Courts">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="CorutOfficeID" ColumnName="CorutOfficeID" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="SupRoleID" ColumnName="SupRoleID" />
+                <ScalarProperty Name="CreateAdminID" ColumnName="CreateAdminID" />
+                <ScalarProperty Name="UpdateAdminID" ColumnName="UpdateAdminID" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

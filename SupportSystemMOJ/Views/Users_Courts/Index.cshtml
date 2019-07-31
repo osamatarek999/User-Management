@@ -1,0 +1,80 @@
+﻿@model IEnumerable<SupportSystemMOJ.dbModels.Users_CourtsDto>
+
+@{
+    ViewBag.Title = "المستخدمين في المحاكم";
+    ViewBag.nameUsers = "عرض المستخدمين في المحاكم";
+}
+
+<p>
+    @Html.ActionLink("ربط مستخدم بالمحكمة", "Create", "", new { @class = "btn btn-primary pull-right" })
+</p>
+<table class="table table-striped table-bordered first">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CreateDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UpdateDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.isActive)
+        </th>
+        <th>
+            @Html.DisplayName("المحكمة - المكتب")
+        </th>
+        <th>
+            @Html.DisplayName("نوع المستخدم")
+        </th>
+        <th>
+            @Html.DisplayName("صلاحية المستخدم")
+        </th>
+        <th>
+            @Html.DisplayName("اسم المستخدم")
+        </th>
+        <th>
+            @Html.DisplayName("ربط بواسطة")
+        </th>
+        <th>
+            @Html.DisplayName("أخر تعديل بواسطة")
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreateDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UpdateDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.isActive)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CourtsOffice.OfficeName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Role.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SubRole.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.FullName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User1.FullName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User2.FullName)
+        </td>
+        <td style="white-space: nowrap;overflow:hidden;">
+            @Html.ActionLink("تعديل", "Edit", new { id = item.ID }) |
+            @Html.ActionLink("تفاصيل", "Details", new { id = item.ID })
+        </td>
+    </tr>
+    }
+
+</table>

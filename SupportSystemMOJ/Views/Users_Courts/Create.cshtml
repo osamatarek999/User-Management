@@ -1,0 +1,91 @@
+﻿@model SupportSystemMOJ.dbModels.Users_CourtsDto
+
+@{
+    ViewBag.Title = "المستخدمين في المحاكم";
+    ViewBag.nameUsers = "ربط المستخدم بالمحكمة";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.UserID, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("UserID", null, htmlAttributes: new { @class = "form-control serchble" })
+            @Html.ValidationMessageFor(model => model.UserID, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Court, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("CorutID", null, " -- اختر المحكمة --", htmlAttributes: new { @class = "form-control serchble" })
+            @Html.ValidationMessageFor(model => model.Court, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.CorutOfficeID, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("CorutOfficeID", null, " -- اختر الدائرة --", htmlAttributes: new { @class = "form-control serchble" })
+            @Html.ValidationMessageFor(model => model.CorutOfficeID, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.RoleID, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("RoleID", null, htmlAttributes: new { @class = "form-control serchble" })
+            @Html.ValidationMessageFor(model => model.RoleID, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.SupRoleID, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("SupRoleID", null, htmlAttributes: new { @class = "form-control serchble" })
+            @Html.ValidationMessageFor(model => model.SupRoleID, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.isActive, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.CheckBoxFor(model => model.isActive, new { @checked = "checked" });
+            @Html.ValidationMessageFor(model => model.isActive, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="ربط المستخدم" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+<div style="left:0px;">
+    @Html.ActionLink("العودة إلى الخلف", "Index")
+</div>
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#CorutID").change(function () {
+            $.get("/Users_Courts/getCourtsOffices", { CourtId: $("#CorutID").val() }, function (data) {
+                $("#CorutOfficeID").empty();
+                $.each(data, function (index, row) {
+                    $("#CorutOfficeID").append("<option value = '" + row.Id + "'>" + row.OfficeName + "</option>")
+                    $("#CorutOfficeID").trigger("chosen:updated");
+                });
+            });
+            $("#CorutOfficeID").empty();
+            $("#CorutOfficeID").trigger("chosen:updated");
+        })
+    });
+</script>

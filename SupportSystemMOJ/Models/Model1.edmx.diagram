@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="29795cebab974856be960f7863964555" Name="Diagram1">
+        <EntityTypeShape EntityType="MOJModel.Court" Width="1.5" PointX="0.75" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MOJModel.CourtsOffice" Width="1.5" PointX="3" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MOJModel.Role" Width="1.5" PointX="3" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="MOJModel.SubRole" Width="1.5" PointX="3" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MOJModel.User" Width="1.5" PointX="8" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MOJModel.Users_Courts" Width="1.5" PointX="5.25" PointY="5.125" IsExpanded="true" />
+        <AssociationConnector Association="MOJModel.FK_CourtsOffice_Courts" ManuallyRouted="false" />
+        <AssociationConnector Association="MOJModel.FK_User_Courts" ManuallyRouted="false" />
+        <AssociationConnector Association="MOJModel.FK_Users_Courts_CourtsOffice" ManuallyRouted="false" />
+        <AssociationConnector Association="MOJModel.FK_User_Role" ManuallyRouted="false" />
+        <AssociationConnector Association="MOJModel.FK_Users_Courts_Role" ManuallyRouted="false" />
+        <AssociationConnector Association="MOJModel.FK_User_SubRole" ManuallyRouted="false" />
+        <AssociationConnector Association="MOJModel.FK_Users_Courts_SubRole" ManuallyRouted="false" />
+        <AssociationConnector Association="MOJModel.FK_Users_Courts_User" ManuallyRouted="false" />
+        <AssociationConnector Association="MOJModel.FK_Users_Courts_User1" ManuallyRouted="false" />
+        <AssociationConnector Association="MOJModel.FK_Users_Courts_User2" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

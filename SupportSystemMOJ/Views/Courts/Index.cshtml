@@ -1,0 +1,84 @@
+﻿@model IEnumerable<SupportSystemMOJ.dbModels.CourtDto>
+
+@{
+    ViewBag.Title = "المحاكم";
+    ViewBag.nameUsers = "عرض المحاكم";
+}
+
+<table class="table table-striped table-bordered first">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CourtName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CategoryID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AllowAppointment)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AppointmentLimit)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CourtCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CityCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RegionCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CityID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RegionID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsActive)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OldCourtId)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CourtName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AllowAppointment)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AppointmentLimit)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CourtCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CityCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RegionCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CityID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RegionID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsActive)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OldCourtId)
+            </td>
+        </tr>
+    }
+
+</table>

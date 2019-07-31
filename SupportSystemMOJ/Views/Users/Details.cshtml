@@ -1,0 +1,186 @@
+﻿@model SupportSystemMOJ.Models.User
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>User</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.UserName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Password)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Password)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FullName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FullName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RoleID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RoleID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreationDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreationDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastLoginDateTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastLoginDateTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OfficeNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OfficeNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OfficeFloorNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OfficeFloorNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OfficeName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OfficeName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsActive)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsActive)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsInworkToday)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsInworkToday)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MaxQueueCount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MaxQueueCount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Phone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Phone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Mobile)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Mobile)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastUpdateDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastUpdateDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SocialID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SocialID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ExtensionNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ExtensionNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ActiveDirectoryUserName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ActiveDirectoryUserName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.olduserid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.olduserid)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SubRoleID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SubRoleID)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
