@@ -1,4 +1,12 @@
-﻿@model IEnumerable<SupportSystemMOJ.dbModels.CourtsOfficesDto>
+﻿@*
+    * =============================================
+    * Title : View Courts Offices
+    * Author : Osama Tarek
+    * Date : 7/2019
+    * Training in the Ministry of Justice
+    * =============================================
+*@
+@model IEnumerable<SupportSystemMOJ.dbModels.CourtsOfficesDto>
 
 @{
     ViewBag.Title = "الدوائر";
@@ -29,26 +37,26 @@
 
     @foreach (var item in Model)
     {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.OfficeName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.OfficeNo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.WorkPercentage)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsActive)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsWorking)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Court.CourtName)
-        </td>
-    </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.OfficeName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OfficeNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WorkPercentage)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsActive)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsWorking)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Court.CourtName)
+            </td>
+        </tr>
     }
 
 </table>

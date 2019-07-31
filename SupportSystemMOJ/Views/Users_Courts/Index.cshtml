@@ -1,4 +1,12 @@
-﻿@model IEnumerable<SupportSystemMOJ.dbModels.Users_CourtsDto>
+﻿@*
+    * =============================================
+    * Title : View Link Between Users and Courts
+    * Author : Osama Tarek
+    * Date : 7/2019
+    * Training in the Ministry of Justice
+    * =============================================
+*@
+@model IEnumerable<SupportSystemMOJ.dbModels.Users_CourtsDto>
 
 @{
     ViewBag.Title = "المستخدمين في المحاكم";
@@ -42,39 +50,39 @@
 
     @foreach (var item in Model)
     {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.CreateDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UpdateDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.isActive)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CourtsOffice.OfficeName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Role.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SubRole.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.User.FullName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.User1.FullName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.User2.FullName)
-        </td>
-        <td style="white-space: nowrap;overflow:hidden;">
-            @Html.ActionLink("تعديل", "Edit", new { id = item.ID }) |
-            @Html.ActionLink("تفاصيل", "Details", new { id = item.ID })
-        </td>
-    </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreateDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UpdateDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.isActive)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CourtsOffice.OfficeName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Role.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SubRole.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User1.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User2.FullName)
+            </td>
+            <td style="white-space: nowrap;overflow:hidden;">
+                @Html.ActionLink("تعديل", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("تفاصيل", "Details", new { id = item.ID })
+            </td>
+        </tr>
     }
 
 </table>

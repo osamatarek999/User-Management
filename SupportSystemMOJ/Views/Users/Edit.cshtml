@@ -1,4 +1,12 @@
-﻿@model SupportSystemMOJ.Models.User
+﻿@*
+    * =============================================
+    * Title : Modify Page for Users
+    * Author : Osama Tarek
+    * Date : 7/2019
+    * Training in the Ministry of Justice
+    * =============================================
+*@
+@model SupportSystemMOJ.Models.User
 
 @{
     ViewBag.Title = "Edit";
@@ -10,7 +18,7 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>User</h4>
         <hr />

@@ -1,4 +1,12 @@
-﻿using System;
+﻿/*
+ * =============================================
+ * Title : Users_Courts Controller ( Relationship between users and courts )
+ * Author : Osama Tarek
+ * Date : 7/2019 
+ * Training in the Ministry of Justice
+ * =============================================
+ */
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;

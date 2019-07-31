@@ -1,4 +1,12 @@
-﻿using System;
+﻿/*
+ * =============================================
+ * Title : CourtDto Model
+ * Author : Osama Tarek
+ * Date : 7/2019 
+ * Training in the Ministry of Justice
+ * =============================================
+ */
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;

@@ -1,5 +1,14 @@
-﻿@{
-    if(Session["UserID"] == null){
+﻿@*
+    * =============================================
+    * Title : Shared page on admin pages
+    * Author : Osama Tarek
+    * Date : 7/2019
+    * Training in the Ministry of Justice
+    * =============================================
+*@
+@{
+    if (Session["UserID"] == null)
+    {
         Response.Redirect("~/Users/index");
     }
     else

@@ -1,4 +1,12 @@
-﻿@model SupportSystemMOJ.Models.User
+﻿@*
+    * =============================================
+    * Title : Login Page to System
+    * Author : Osama Tarek
+    * Date : 7/2019
+    * Training in the Ministry of Justice
+    * =============================================
+*@
+@model SupportSystemMOJ.Models.User
 
 @{
     Layout = null;
@@ -52,7 +60,7 @@
                     <div class="form-group">
                         <div class="input-group mb-3">
                             <span class="input-group-prepend"><span class="input-group-text"><i class="mdi mdi-email"></i></span></span>
-                            @Html.TextBoxFor(a => a.Email, new { @class = "form-control form-control-lg", @placeholder = "البريد الإلكتروني" , @type = "email" })
+                            @Html.TextBoxFor(a => a.Email, new { @class = "form-control form-control-lg", @placeholder = "البريد الإلكتروني", @type = "email" })
                             @Html.ValidationMessageFor(a => a.Email)
                         </div>
                     </div>
@@ -60,7 +68,7 @@
                     <div class="form-group">
                         <div class="input-group mb-3">
                             <span class="input-group-prepend"><span class="input-group-text"><i class="mdi mdi-lock"></i></span></span>
-                            @Html.TextBoxFor(a => a.Password, new { @class = "form-control form-control-lg" , @placeholder = "كلمة المرور" , @type = "password" })
+                            @Html.TextBoxFor(a => a.Password, new { @class = "form-control form-control-lg", @placeholder = "كلمة المرور", @type = "password" })
                             @Html.ValidationMessageFor(a => a.Password)
                         </div>
                     </div>
@@ -70,13 +78,13 @@
                     <br /><br />
                     if (@ViewBag.Message != null)
                     {
-                          <div class="alert alert-warning" style="text-align:right" role="alert">
-                              @ViewBag.Message
-                          </div>
+                        <div class="alert alert-warning" style="text-align:right" role="alert">
+                            @ViewBag.Message
+                        </div>
                     }
                 }
             </div>
-            </div>
+        </div>
     </div>
 
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>
