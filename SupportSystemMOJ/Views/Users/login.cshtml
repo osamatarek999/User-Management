@@ -60,7 +60,7 @@
                     <div class="form-group">
                         <div class="input-group mb-3">
                             <span class="input-group-prepend"><span class="input-group-text"><i class="mdi mdi-email"></i></span></span>
-                            @Html.TextBoxFor(a => a.Email, new { @class = "form-control form-control-lg", @placeholder = "البريد الإلكتروني", @type = "email" })
+                            @Html.TextBoxFor(a => a.ActiveDirectoryUserName, new { @class = "form-control form-control-lg", @placeholder = "اسم المستخدم", @type = "username" })
                             @Html.ValidationMessageFor(a => a.Email)
                         </div>
                     </div>

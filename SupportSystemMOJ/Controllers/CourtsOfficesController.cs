@@ -40,7 +40,8 @@ namespace SupportSystemMOJ.Controllers
                     IsWorking = item.IsWorking,
                     OfficeName = item.OfficeName,
                     OfficeNo = item.OfficeNo,
-                    WorkPercentage = item.WorkPercentage
+                    WorkPercentage = item.WorkPercentage,
+                    Court = item.Court
                 });
             }
 

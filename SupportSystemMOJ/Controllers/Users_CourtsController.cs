@@ -40,7 +40,16 @@ namespace SupportSystemMOJ.Controllers
                     SubRole = item.SubRole,
                     User = item.User,
                     User1 = item.User1,
-                    User2 = item.User2
+                    User2 = item.User2,
+                    CorutOfficeID = item.CorutOfficeID,
+                    CreateAdminID = item.CreateAdminID,
+                    CreateDate = item.CreateDate,
+                    isActive = item.isActive,
+                    RoleID = item.RoleID,
+                    SupRoleID = item.SupRoleID,
+                    UpdateAdminID = item.UpdateAdminID,
+                    UpdateDate = item.UpdateDate,
+                    UserID = item.UserID
                 });
             }
             return View(users_courts);
@@ -68,6 +77,7 @@ namespace SupportSystemMOJ.Controllers
             users_courts.User = users_Courts.User;
             users_courts.User1 = users_Courts.User1;
             users_courts.User2 = users_Courts.User2;
+            users_courts.isActive = users_Courts.isActive;
 
             return View(users_courts);
         }
@@ -104,23 +114,55 @@ namespace SupportSystemMOJ.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,UserID,CorutOfficeID,RoleID,SupRoleID,CreateAdminID,UpdateAdminID,isActive")] Users_Courts users_Courts)
+        public ActionResult Create([Bind(Include = "ID,UserID,CorutOfficeID,RoleID,SupRoleID,UpdateAdminID,CreateDate,UpdateDate,isActive")] Users_Courts users_Courts)
         {
             if (ModelState.IsValid)
             {
-                users_Courts.CreateAdminID = Convert.ToInt32(Session["UserID"]);
-                users_Courts.UpdateAdminID = Convert.ToInt32(Session["UserID"]);
-                db.Users_Courts.Add(users_Courts);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (db.Users_Courts.Where(x => x.UserID == users_Courts.UserID && x.CorutOfficeID == users_Courts.CorutOfficeID && x.RoleID == users_Courts.RoleID).FirstOrDefault() == null)
+                {
+                    users_Courts.CreateDate = DateTime.Now;
+                    users_Courts.UpdateDate = DateTime.Now;
+                    users_Courts.CreateAdminID = Convert.ToInt32(Session["UserID"]);
+                    users_Courts.UpdateAdminID = Convert.ToInt32(Session["UserID"]);
+
+                    if (users_Courts.RoleID.Equals(3))
+                    {
+                        users_Courts.SupRoleID = 1;
+                    }
+
+                    db.Users_Courts.Add(users_Courts);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    ViewBag.Message = "الربط موجود سابقاً";
+                }
             }
 
-            ViewBag.RoleID = new SelectList(db.Roles, "ID", "Name", users_Courts.RoleID);
-            ViewBag.SupRoleID = new SelectList(db.SubRoles, "ID", "Name", users_Courts.SupRoleID);
-            ViewBag.UserID = new SelectList(db.Users, "ID", "UserName", users_Courts.UserID);
-            ViewBag.CreateAdminID = new SelectList(db.Users, "ID", "UserName", users_Courts.CreateAdminID);
-            ViewBag.UpdateAdminID = new SelectList(db.Users, "ID", "UserName", users_Courts.UpdateAdminID);
-            return View(users_Courts);
+            ViewBag.CorutID = new SelectList(db.Courts, "CourtID", "CourtName");
+            ViewBag.CorutOfficeID = new SelectList("");
+            ViewBag.RoleID = new SelectList(db.Roles, "ID", "Name");
+            ViewBag.SupRoleID = new SelectList(db.SubRoles, "ID", "Name");
+
+
+            MOJEntities dbC = new MOJEntities();
+            List<object> newList = new List<object>();
+            foreach (var item in dbC.Users)
+                newList.Add(new
+                {
+                    Id = item.ID,
+                    Name = item.FullName + " | " + item.SocialID
+                });
+            ViewBag.UserID = new SelectList(newList, "Id", "Name");
+
+
+
+            //ViewBag.UserID = new SelectList(db.Users, "ID", "UserName");
+            ViewBag.CreateAdminID = new SelectList(db.Users, "ID", "FullName");
+            ViewBag.UpdateAdminID = new SelectList(db.Users, "ID", "UserName");
+
+            return View();
         }
 
         public JsonResult getCourtsOffices(int CourtId)
@@ -143,6 +185,7 @@ namespace SupportSystemMOJ.Controllers
                 return HttpNotFound();
             }
 
+            ViewBag.CorutID = new SelectList(db.Courts, "CourtID", "CourtName", users_Courts.CourtsOffice.CourtId);
             ViewBag.CorutOfficeID = new SelectList(db.CourtsOffices, "Id", "OfficeName", users_Courts.CorutOfficeID);
             ViewBag.RoleID = new SelectList(db.Roles, "ID", "Name", users_Courts.RoleID);
             ViewBag.SupRoleID = new SelectList(db.SubRoles, "ID", "Name", users_Courts.SupRoleID);
@@ -159,6 +202,7 @@ namespace SupportSystemMOJ.Controllers
             users_courts.User = users_Courts.User;
             users_courts.User1 = users_Courts.User1;
             users_courts.User2 = users_Courts.User2;
+            users_courts.isActive = users_Courts.isActive;
 
             return View(users_courts);
         }
@@ -172,13 +216,35 @@ namespace SupportSystemMOJ.Controllers
         {
             if (ModelState.IsValid)
             {
-                users_Courts.UpdateAdminID = Convert.ToInt32(Session["UserID"]);
-                users_Courts.UpdateDate = DateTime.Now;
+                if (db.Users_Courts.Where(x => x.UserID == users_Courts.UserID && x.CorutOfficeID == users_Courts.CorutOfficeID && x.RoleID == users_Courts.RoleID).FirstOrDefault() == null)
+                {
+                    users_Courts.UpdateAdminID = Convert.ToInt32(Session["UserID"]);
+                    users_Courts.UpdateDate = DateTime.Now;
+                    //users_Courts.CreateDate = DateTime.Now;
+                    if (users_Courts.RoleID.Equals(3))
+                    {
+                        users_Courts.SupRoleID = 1;
+                    }
 
-                db.Entry(users_Courts).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                    db.Users_Courts.Attach(users_Courts);
+                    db.Entry(users_Courts).Property(x => x.UpdateAdminID).IsModified = true;
+                    db.Entry(users_Courts).Property(x => x.UpdateDate).IsModified = true;
+                    db.Entry(users_Courts).Property(x => x.CorutOfficeID).IsModified = true;
+                    db.Entry(users_Courts).Property(x => x.RoleID).IsModified = true;
+                    db.Entry(users_Courts).Property(x => x.SupRoleID).IsModified = true;
+                    db.Entry(users_Courts).Property(x => x.isActive).IsModified = true;
+
+                    //db.Entry(users_Courts.UpdateDate).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    ViewBag.Message = "الربط موجود سابقاً";
+                }
             }
+
+            ViewBag.CorutID = new SelectList(db.Courts, "CourtID", "CourtName");
             ViewBag.CorutOfficeID = new SelectList(db.CourtsOffices, "Id", "OfficeName", users_Courts.CorutOfficeID);
             ViewBag.RoleID = new SelectList(db.Roles, "ID", "Name", users_Courts.RoleID);
             ViewBag.SupRoleID = new SelectList(db.SubRoles, "ID", "Name", users_Courts.SupRoleID);

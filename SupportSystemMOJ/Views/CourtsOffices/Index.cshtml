@@ -16,6 +16,9 @@
 <table class="table table-striped table-bordered first">
     <tr>
         <th>
+            @Html.DisplayName("المحكمة")
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.OfficeName)
         </th>
         <th>
@@ -25,38 +28,35 @@
             @Html.DisplayNameFor(model => model.WorkPercentage)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.IsActive)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.IsWorking)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Court.CourtName)
+            @Html.DisplayNameFor(model => model.IsActive)
         </th>
     </tr>
 
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.OfficeName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.OfficeNo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.WorkPercentage)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsActive)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsWorking)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Court.CourtName)
-            </td>
-        </tr>
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Court.CourtName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OfficeName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OfficeNo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WorkPercentage)
+        </td>
+        <td>
+            @Html.DisplayTextFor(modelItem => item.IsWorking)
+        </td>
+        <td>
+            @Html.DisplayTextFor(modelItem => item.IsActive)
+        </td>
+    </tr>
     }
 
 </table>

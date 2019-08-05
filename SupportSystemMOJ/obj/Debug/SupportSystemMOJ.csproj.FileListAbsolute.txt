@@ -70,3 +70,4 @@ C:\Users\ASMA\source\repos\SupportSystemMOJ\SupportSystemMOJ\obj\Debug\SupportSy
 C:\Users\ASMA\source\repos\SupportSystemMOJ\SupportSystemMOJ\obj\Debug\SupportSystemMOJ.csproj.CopyComplete
 C:\Users\ASMA\source\repos\SupportSystemMOJ\SupportSystemMOJ\obj\Debug\SupportSystemMOJ.dll
 C:\Users\ASMA\source\repos\SupportSystemMOJ\SupportSystemMOJ\obj\Debug\SupportSystemMOJ.pdb
+C:\Users\ASMA\source\repos\SupportSystemMOJ\SupportSystemMOJ\obj\Debug\SupportSystemMOJ.csprojAssemblyReference.cache

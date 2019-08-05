@@ -176,11 +176,11 @@ namespace SupportSystemMOJ.Controllers
             {
                 using (MOJEntities db = new MOJEntities())
                 {
-                    var obj = db.Users.Where(a => a.Email.Equals(objUser.Email) && a.Password.Equals(objUser.Password)).FirstOrDefault();
+                    var obj = db.Users.Where(a => a.ActiveDirectoryUserName.Equals(objUser.ActiveDirectoryUserName) && a.Password.Equals(objUser.Password)).FirstOrDefault();
                     if (obj != null)
                     {
                         Session["UserID"] = obj.ID.ToString();
-                        Session["UserName"] = obj.UserName.ToString();
+                        Session["UserName"] = obj.ActiveDirectoryUserName.ToString();
                         Session["FullName"] = obj.FullName.ToString();
                         Session["RoleID"] = obj.RoleID;
                         if (db.Users.Where(a => a.RoleID.ToString().Equals("10") && a.ID.Equals(obj.ID)).FirstOrDefault() != null)
@@ -195,7 +195,7 @@ namespace SupportSystemMOJ.Controllers
                     }
                     else
                     {
-                        ViewBag.Message = "البريد الإلكتروني أو كلمة المرور غير صحيحة";
+                        ViewBag.Message = "اسم المستخدم أو كلمة المرور غير صحيحة";
                     }
                 }
             }
